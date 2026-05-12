@@ -13,7 +13,7 @@ User question:
 """
 
     response = client.responses.create(
-        model="gpt-4.0",
+        model="gpt-4.1-mini",
         input=prompt
     )
 

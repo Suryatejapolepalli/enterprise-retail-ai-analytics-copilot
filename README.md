@@ -308,6 +308,16 @@ enterprise-retail-ai-analytics-copilot/
 
 # Screenshots
 
+## Architecture Diagram
+
+![Architecture Diagram](architecture/architecture_diagram.png)
+
+---
+
+## My Implementation Proof
+
+![Implementation Proof](architecture/implementation_proof.png)
+
 ## Streamlit Dashboard
 
 ![Dashboard](screenshots/dashboard.png)
