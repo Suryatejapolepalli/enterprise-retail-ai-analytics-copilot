@@ -310,27 +310,19 @@ enterprise-retail-ai-analytics-copilot/
 
 ## Streamlit Dashboard
 
-```text
-screenshots/dashboard.png
-```
+![Dashboard](screenshots/dashboard.png)
 
 ## Generated Athena SQL
 
-```text
-screenshots/generated_sql.png
-```
+![Generated SQL](screenshots/generated_sql.png)
 
 ## Query Results
 
-```text
-screenshots/query_results.png
-```
+![Query Results](screenshots/query_results.png)
 
 ## Visualization
 
-```text
-screenshots/chart.png
-```
+![Visualization](screenshots/chart.png)
 
 ---
 
