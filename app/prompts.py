@@ -77,6 +77,10 @@ Rules:
 - For revenue calculations use SUM(total_amount).
 - For count questions use COUNT(*).
 - For average calculations use AVG().
+- NEVER use QUALIFY.
+- Athena does not support QUALIFY.
+- Athena does not support BigQuery or Snowflake syntax.
+- For "most ordered product by state", use a subquery with ROW_NUMBER() and filter in outer WHERE clause.
 
 - If the user specifies a number like:
   top 3,

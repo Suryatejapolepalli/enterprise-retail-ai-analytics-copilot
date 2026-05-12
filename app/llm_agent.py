@@ -20,4 +20,7 @@ User question:
     sql = response.output_text.strip()
     sql = sql.replace("```sql", "").replace("```", "").strip()
 
+    if "QUALIFY" in sql.upper():
+        raise ValueError(
+        "Invalid SQL generated: QUALIFY is not supported by Athena. Please retry the question." )
     return sql
