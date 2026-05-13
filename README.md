@@ -307,6 +307,21 @@ Automatically generates:
 - Show payment status distribution
 - Top 3 products by sales
 
+---
+
+## ✨ Live Features
+
+- ✅ AI-powered NL2SQL generation
+- ✅ Amazon Athena query execution
+- ✅ Interactive visualizations
+- ✅ KPI cards
+- ✅ Query history tracking
+- ✅ CSV download support
+- ✅ Enterprise warehouse architecture
+- ✅ SCD Type 1 & Type 2 implementation
+
+---
+
 # 🧪 Sample Athena Queries
 
 ## Revenue by State
@@ -425,6 +440,14 @@ Planned enterprise upgrades:
 - CI/CD Pipelines
 - Bedrock Integration
 - Role-Based Access Control
+
+---
+
+# 🔐 Security
+
+- OpenAI API keys are managed using environment variables
+- AWS credentials are configured using AWS CLI profiles
+- No secrets or credentials are hardcoded in the repository
 
 ---
 
