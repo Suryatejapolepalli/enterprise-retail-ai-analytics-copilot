@@ -1,5 +1,5 @@
 # 🚀 Enterprise Retail AI Analytics Copilot  
-### *AI-Powered Serverless Retail Analytics Platform on AWS*
+### AI-Powered Serverless Retail Analytics Platform on AWS
 
 ![AWS](https://img.shields.io/badge/AWS-Serverless-orange?logo=amazonaws)
 ![Python](https://img.shields.io/badge/Python-Analytics-blue?logo=python)
@@ -10,163 +10,117 @@
 
 ---
 
-# 📌 Project Overview
+## 📌 Project Overview
 
-Enterprise Retail AI Analytics Copilot is a **production-style AI-powered analytics platform** built on AWS that enables users to ask **business questions in natural language** and instantly receive:
+Enterprise Retail AI Analytics Copilot is a production-style AI-powered analytics platform built on AWS. It allows users to ask business questions in natural language and receive Athena SQL queries, analytics results, visualizations, CSV downloads, query history, and AI-generated business insights.
 
-✅ Athena SQL Queries  
-✅ Analytics Results  
-✅ Visualizations & Charts  
-✅ Business Insights  
-
-This project combines:
-
-- ☁️ AWS Serverless Data Engineering
-- 🧠 OpenAI NL2SQL Intelligence
-- 📊 Enterprise Data Warehousing
-- ⚡ Real-time Analytics Architecture
-- 📈 Interactive Streamlit Dashboards
+This project combines AWS data engineering, enterprise data warehousing, and generative AI to create a lightweight conversational analytics copilot.
 
 ---
 
-# 🎯 Business Problem Solved
+## 🎯 Business Problem
 
-Retail organizations generate massive volumes of:
+Business users often depend on data analysts or engineers to write SQL queries and generate insights from enterprise data warehouses. This slows down decision-making and creates dependency on technical teams.
 
-- Orders
-- Inventory
-- Customer
-- Product
-- Payment
-
-data daily.
-
-Business users often struggle to:
-
-❌ Write SQL queries  
-❌ Access analytics quickly  
-❌ Generate insights without technical teams  
-
-This platform solves that problem using **AI-powered Natural Language to SQL (NL2SQL)** generation.
-
----
-
-# 🧠 AI Copilot Capabilities
-
-Users can ask questions like:
+This application solves that problem by allowing users to ask questions like:
 
 ```text
 Show top 5 states by revenue
-
+Best selling product
 Which city has highest revenue
-
-Best selling products
-
 Show payment status distribution
-
 Top 3 products by sales
 ```
 
-The system automatically:
+The system automatically converts the question into Athena SQL, runs it against the curated AWS data warehouse, and displays results with charts and insights.
+
+---
+
+## ✨ Live Features
+
+- ✅ Natural Language to SQL using OpenAI
+- ✅ Amazon Athena query execution
+- ✅ Interactive Streamlit dashboard
+- ✅ AI-generated business insights
+- ✅ Query history tracking
+- ✅ CSV download support
+- ✅ KPI cards
+- ✅ Auto visualization
+- ✅ Generated SQL display
+- ✅ AWS Glue + S3 + Athena integration
+- ✅ Enterprise data warehouse design
+- ✅ SCD Type 1 and SCD Type 2 implementation
+
+---
+
+## 🧠 AI Workflow
 
 ```text
-Natural Language
+Business Question
         ↓
-OpenAI GPT
+Streamlit Frontend
         ↓
-Athena SQL
+OpenAI GPT Model
         ↓
-Query Execution
+Schema-Aware Prompt Engineering
         ↓
-Results + Charts + Insights
+Athena SQL Generation
+        ↓
+Amazon Athena Query Execution
+        ↓
+Curated S3 Data Warehouse
+        ↓
+Results + Charts + AI Business Insights
 ```
 
 ---
 
-# 🏗️ End-to-End Architecture
-
-## 📌 Architecture Diagram
+## 🏗️ Architecture Diagram
 
 ![Architecture Diagram](architecture/architecture_diagram.png)
 
 ---
 
-
-## 📌 Implementation Proof (What I Built)
+## 🧾 Implementation Proof
 
 ![Implementation Proof](architecture/implementation_proof.png)
 
 ---
 
-# ☁️ AWS Services Used
+## ☁️ AWS Services Used
 
-| AWS Service | Purpose |
+| Service | Purpose |
 |---|---|
-| Amazon S3 | Raw & Curated Data Lake |
-| AWS Glue | Enterprise ETL Framework |
-| AWS Lambda | Event Trigger Automation |
-| Amazon Athena | SQL Analytics Engine |
-| Amazon SNS | Failure Notifications |
-| Amazon CloudWatch | Monitoring & Logs |
-| AWS IAM | Security & Access |
-| Streamlit | Interactive Dashboard |
-| OpenAI API | NL2SQL AI Engine |
+| Amazon S3 | Raw and curated data lake storage |
+| AWS Glue | PySpark ETL processing |
+| AWS Lambda | Event-driven ETL orchestration |
+| Amazon Athena | Serverless SQL query engine |
+| AWS Glue Data Catalog | Metadata catalog |
+| Amazon CloudWatch | Monitoring and logs |
+| Amazon SNS | Failure alerts and notifications |
+| AWS IAM | Access control and permissions |
+| OpenAI API | Natural language to SQL generation |
+| Streamlit | Interactive web application |
 
 ---
 
-# 🏗️ System Components
+## 🧱 System Components
 
 | Layer | Technology |
 |---|---|
 | Frontend | Streamlit |
 | AI Layer | OpenAI GPT |
+| Prompt Layer | Schema-aware prompt engineering |
 | Query Engine | Amazon Athena |
 | ETL Layer | AWS Glue PySpark |
 | Storage Layer | Amazon S3 |
-| Monitoring | CloudWatch + SNS |
+| Metadata Layer | AWS Glue Data Catalog |
 | Orchestration | AWS Lambda |
+| Monitoring | CloudWatch + SNS |
 
 ---
 
-
-# 🧱 Enterprise Data Warehouse Design
-
-## ⭐ Fact Tables
-
-### 📦 fact_orders
-
-```text
-Grain = 1 row per order
-```
-
-### 🏭 fact_inventory
-
-```text
-Grain = 1 row per product per warehouse
-```
-
----
-
-## ⭐ Dimension Tables
-
-### 👤 dim_customer_scd2
-
-Implemented using:
-
-- SCD Type 2
-- Historical Tracking
-- Effective Dates
-- Current Flag Logic
-
-### 🛍️ dim_product_scd1
-
-Implemented using:
-
-- SCD Type 1 Overwrite Logic
-
----
-
-# 🔄 Enterprise ETL Pipeline Flow
+## 🔄 Enterprise ETL Pipeline Flow
 
 ```text
 Retail CSV Files
@@ -175,17 +129,19 @@ Amazon S3 Raw Layer
         ↓
 AWS Lambda Trigger
         ↓
-AWS Glue PySpark ETL
+AWS Glue PySpark ETL Job
         ↓
-Validation & Reject Handling
+Data Validation
         ↓
-SCD Type 1 & Type 2 Processing
+Reject Handling
         ↓
-Fact & Dimension Loading
+SCD Type 1 and SCD Type 2 Processing
         ↓
-Audit & Reconciliation
+Fact and Dimension Loading
         ↓
-Curated S3 Warehouse
+Audit and Reconciliation
+        ↓
+Curated Parquet Warehouse
         ↓
 Amazon Athena
         ↓
@@ -194,186 +150,147 @@ AI Analytics Copilot
 
 ---
 
-# 🔥 Key Enterprise Features
+## 🧱 Data Warehouse Design
 
-## ✅ Data Validation Framework
+### Fact Tables
 
-Implemented:
-
-- Null validations
-- Duplicate handling
-- Data type validation
-- Business rule validation
-- Invalid record filtering
-
----
-
-## ✅ Reject Handling Framework
-
-Invalid records redirected into dedicated reject zones with:
-
-- Reject reason
-- Timestamp
-- Source tracking
-
----
-
-## ✅ Audit Logging Framework
-
-Audit framework captures:
-
-- Job names
-- Record counts
-- Load timestamps
-- Job status
-- Target locations
-
----
-
-## ✅ Reconciliation Framework
-
-Implemented enterprise reconciliation between:
-
-- Source counts
-- Valid counts
-- Reject counts
-- Curated target counts
-
----
-
-# ⚡ Event-Driven Serverless Architecture
-
-Implemented automation using:
+#### fact_orders
 
 ```text
-S3 Upload
-    ↓
-Lambda Trigger
-    ↓
-Glue ETL Execution
+Grain = 1 row per order
 ```
 
-This enables fully automated ETL execution whenever new files arrive.
+Used for:
+
+- Revenue analysis
+- Product sales analysis
+- Customer order analysis
+- Payment status analytics
+- State and city-level performance
+
+#### fact_inventory
+
+```text
+Grain = 1 row per product per warehouse
+```
+
+Used for:
+
+- Inventory monitoring
+- Low stock detection
+- Reorder-level analysis
+- Warehouse-level stock tracking
 
 ---
 
-# 📊 AI-Powered Analytics Features
+### Dimension Tables
 
-## 🧠 Intelligent SQL Generation
+#### dim_customer_scd2
 
-The AI engine automatically:
+Implemented using SCD Type 2 to track customer history.
 
-✅ Generates Athena-compatible SQL  
-✅ Applies dynamic LIMIT handling  
-✅ Selects only requested columns  
-✅ Handles ranking queries  
-✅ Supports aggregation logic  
-✅ Understands business analytics questions  
+Includes:
 
----
+- Customer details
+- City and state changes
+- Effective start date
+- Effective end date
+- Current flag
+- Historical tracking
 
-## 📈 Dynamic Visualization Layer
+#### dim_product_scd1
 
-Automatically generates:
+Implemented using SCD Type 1 overwrite logic.
 
-- Bar Charts
-- KPI Insights
-- Revenue Analytics
-- Ranking Visualizations
-- Business Summaries
+Includes:
 
----
-
-# 📸 Application Screenshots
-
-## 🖥️ Streamlit Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
----
-## 🧠 AI Business Insights
-
-![AI Business Insights](screenshots/ai_business_insights.png)
+- Product name
+- Category
+- Price
+- Latest product attributes
 
 ---
 
-## 🕘 AI Query History
+## 🏢 Enterprise Features
 
-![Query History](screenshots/query_history.png)
+### Data Validation Framework
 
----
+Implemented validation checks for:
 
-## 🧠 Generated Athena SQL
-
-![Generated SQL](screenshots/generated_sql.png)
-
----
-
-## 📊 Query Results
-
-![Query Results](screenshots/query_results.png)
+- Null values
+- Duplicate records
+- Invalid datatypes
+- Missing required fields
+- Business rule violations
 
 ---
 
-## 📈 Visualization Layer
+### Reject Handling Framework
 
-![Visualization](screenshots/chart.png)
+Invalid records are redirected into reject zones with:
 
----
-
-## Demo Questions
-
-- Show top 5 states by revenue
-- Best selling product
-- Which city has highest revenue
-- Show payment status distribution
-- Top 3 products by sales
+- Reject reason
+- Rejected timestamp
+- Source identification
 
 ---
 
-## ✨ Live Features
+### Audit Logging Framework
 
-- ✅ AI-powered NL2SQL generation
-- ✅ Amazon Athena query execution
-- ✅ Interactive visualizations
-- ✅ KPI cards
-- ✅ Query history tracking
-- ✅ CSV download support
-- ✅ Enterprise warehouse architecture
-- ✅ SCD Type 1 & Type 2 implementation
+Audit logs capture:
+
+- Job name
+- Entity name
+- Record counts
+- Target path
+- Load timestamp
+- Job status
 
 ---
 
-## 🧠 AI Business Insights
+### Reconciliation Framework
 
-The application automatically generates executive-level business insights using OpenAI after query execution.
+Reconciliation checks compare:
 
-Features:
+- Source record count
+- Valid record count
+- Reject record count
+- Target record count
 
-- AI-generated executive summaries
-- Trend identification
-- Business observations
-- Insight generation from Athena query results
+This ensures data consistency between raw and curated layers.
+
+---
+
+### Monitoring and Alerting
+
+Implemented monitoring using:
+
+- Amazon CloudWatch logs
+- CloudWatch alarms
+- SNS email alerts
+- Glue job failure notifications
+
+---
+
+## 📊 AI Analytics Copilot Features
+
+### Natural Language to SQL
+
+The application converts business questions into Athena-compatible SQL.
 
 Example:
 
 ```text
-California generated the highest revenue among all states.
-Electronics products dominate sales performance.
-Revenue concentration indicates strong regional demand.
+User: Show top 5 states by revenue
 ```
----
 
-
-# 🧪 Sample Athena Queries
-
-## Revenue by State
+Generated SQL:
 
 ```sql
 SELECT
     state,
     SUM(total_amount) AS revenue
-FROM fact_orders
+FROM retail_enterprise_curated_db.fact_orders
 GROUP BY state
 ORDER BY revenue DESC
 LIMIT 5;
@@ -381,11 +298,124 @@ LIMIT 5;
 
 ---
 
-## Best Selling Product
+### Schema-Aware Prompt Engineering
+
+The LLM is guided using table and column context so that it generates SQL only using available warehouse tables.
+
+Prompt rules include:
+
+- Generate Athena-compatible SQL
+- Avoid unnecessary columns
+- Use only provided schema
+- Apply dynamic LIMIT handling
+- Select only requested columns
+- Use aggregations when needed
+- Avoid unsupported SQL syntax where possible
+
+---
+
+### AI-Generated Business Insights
+
+After Athena returns results, OpenAI generates executive-style business insights.
+
+Example insight:
+
+```text
+The analysis highlights the top-performing states by revenue.
+Revenue is concentrated in a small number of regions, which can help guide
+regional marketing, inventory planning, and sales strategy.
+```
+
+---
+
+### Query History
+
+The application stores recent user questions during the session.
+
+This helps users review previous analytics requests and supports conversational-style analysis.
+
+---
+
+### CSV Download
+
+Users can download query results directly from the dashboard as a CSV file.
+
+---
+
+### Auto Visualization
+
+If the query returns a numeric metric, the application automatically generates a chart.
+
+Supported examples:
+
+- Revenue by state
+- Sales by product
+- Payment status distribution
+- Inventory metrics
+- Top-N ranking results
+
+---
+
+## 📸 Application Screenshots
+
+### Streamlit Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Generated Athena SQL
+
+![Generated SQL](screenshots/generated_sql.png)
+
+---
+
+### Query Results
+
+![Query Results](screenshots/query_results.png)
+
+---
+
+### Visualization
+
+![Visualization](screenshots/chart.png)
+
+---
+
+### AI Business Insights
+
+![AI Business Insights](screenshots/ai_business_insights.png)
+
+---
+
+### AI Query History
+
+![AI Query History](screenshots/query_history.png)
+
+---
+
+## 🧪 Sample Athena Queries
+
+### Revenue by State
 
 ```sql
-SELECT product_name
-FROM fact_orders
+SELECT
+    state,
+    SUM(total_amount) AS revenue
+FROM retail_enterprise_curated_db.fact_orders
+GROUP BY state
+ORDER BY revenue DESC
+LIMIT 5;
+```
+
+---
+
+### Best Selling Product
+
+```sql
+SELECT
+    product_name
+FROM retail_enterprise_curated_db.fact_orders
 GROUP BY product_name
 ORDER BY SUM(quantity) DESC
 LIMIT 1;
@@ -393,20 +423,68 @@ LIMIT 1;
 
 ---
 
-## Low Inventory Detection
+### Payment Status Distribution
+
+```sql
+SELECT
+    payment_status,
+    COUNT(*) AS total_count
+FROM retail_enterprise_curated_db.fact_orders
+GROUP BY payment_status
+LIMIT 10;
+```
+
+---
+
+### Low Inventory Detection
 
 ```sql
 SELECT
     product_name,
     warehouse_id,
-    stock_quantity
-FROM fact_inventory
+    stock_quantity,
+    reorder_level
+FROM retail_enterprise_curated_db.fact_inventory
 WHERE stock_quantity < reorder_level;
 ```
 
 ---
 
-# 📂 Project Structure
+## ▶️ Run Locally
+
+```bash
+git clone https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot.git
+
+cd enterprise-retail-ai-analytics-copilot
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+streamlit run app/streamlit_app.py
+```
+
+---
+
+## 🔐 Security
+
+- OpenAI API keys are managed using environment variables
+- AWS credentials are configured using AWS CLI profiles
+- No secrets or credentials are hardcoded in the repository
+- `.gitignore` is used to prevent local environment files from being pushed
+- API keys and AWS credentials should never be committed to GitHub
+
+Example environment variable:
+
+```bash
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+---
+
+## 📂 Project Structure
 
 ```text
 enterprise-retail-ai-analytics-copilot/
@@ -415,10 +493,21 @@ enterprise-retail-ai-analytics-copilot/
 │   ├── streamlit_app.py
 │   ├── athena_client.py
 │   ├── llm_agent.py
-│   └── prompts.py
+│   ├── prompts.py
+│   └── insight_generator.py
 │
 ├── architecture/
+│   ├── architecture_diagram.png
+│   └── implementation_proof.png
+│
 ├── screenshots/
+│   ├── dashboard.png
+│   ├── generated_sql.png
+│   ├── query_results.png
+│   ├── chart.png
+│   ├── ai_business_insights.png
+│   └── query_history.png
+│
 ├── README.md
 ├── requirements.txt
 └── .gitignore
@@ -426,120 +515,112 @@ enterprise-retail-ai-analytics-copilot/
 
 ---
 
-## Security
+## 🛠️ Technical Skills Demonstrated
 
-OpenAI API keys and AWS credentials are not hardcoded in the application.  
-Credentials are managed securely through environment variables and local AWS CLI configuration.
-
----
-
-# 🛠️ Technical Skills Demonstrated
-
-## ☁️ AWS & Cloud
+### AWS and Cloud
 
 - Amazon S3
 - AWS Glue
 - AWS Lambda
 - Amazon Athena
-- CloudWatch
-- SNS
-- IAM
+- AWS Glue Data Catalog
+- Amazon CloudWatch
+- Amazon SNS
+- AWS IAM
 
----
+### Data Engineering
 
-## 🧠 AI & Analytics
+- PySpark ETL
+- Data Lake Architecture
+- Data Warehousing
+- Dimensional Modeling
+- SCD Type 1
+- SCD Type 2
+- Data Validation
+- Audit Logging
+- Reconciliation
+- Reject Handling
+
+### AI and Analytics
 
 - OpenAI API
-- NL2SQL
+- Natural Language to SQL
 - Prompt Engineering
-- Business Analytics
-- Streamlit Dashboards
+- AI Business Insight Generation
+- Streamlit Dashboarding
+- Conversational Analytics
+- Automated Visualizations
 
 ---
 
-## 📊 Data Engineering
+## 📈 Project Impact
 
-- PySpark
-- Enterprise ETL
-- SCD Type 1 & 2
-- Data Warehousing
-- Audit Frameworks
-- Reconciliation Frameworks
-- Data Validation
+This project demonstrates how enterprise data engineering and generative AI can be combined to build intelligent analytics platforms.
+
+It reduces dependency on manual SQL writing and helps business users explore data through natural language questions.
+
+The solution represents a practical example of how AI copilots can sit on top of cloud data warehouses to accelerate analytics and business decision-making.
 
 ---
 
-# 🚀 Future Enhancements
+## 💼 Resume Highlights
 
-Planned enterprise upgrades:
-
-- LangChain Agents
-- RAG Architecture
-- Query History
-- Conversational Memory
-- KPI Cards
-- CSV/PDF Export
-- Terraform IaC
-- CI/CD Pipelines
-- Bedrock Integration
-- Role-Based Access Control
+- Built an AI-powered NL2SQL analytics copilot using AWS Athena, OpenAI, Streamlit, and enterprise data warehousing concepts.
+- Developed a serverless retail analytics platform using AWS Glue, Lambda, S3, Athena, CloudWatch, and SNS.
+- Implemented SCD Type 1 and SCD Type 2 processing with PySpark for enterprise dimensional modeling.
+- Created audit logging, reconciliation, reject handling, and data validation frameworks for production-style ETL pipelines.
+- Integrated AI-generated executive insights, query history, CSV download, KPI cards, and automated visualizations.
 
 ---
 
-# 🔐 Security
+## ⚠️ Limitations
 
-- OpenAI API keys are managed using environment variables
-- AWS credentials are configured using AWS CLI profiles
-- No secrets or credentials are hardcoded in the repository
+- Current version uses OpenAI SDK directly instead of LangChain or LangGraph
+- Complex multi-step analytical questions may require additional SQL validation
+- Athena performance depends on partitioning, file format, and query design
+- Query history is session-based and not yet persisted in a database
+- User authentication and role-based access control are not yet implemented
 
 ---
 
-# 👨‍💻 Author
+## 🚀 Future Enhancements
 
-## Surya Teja Polepalli
+- LangChain or LangGraph agent workflow
+- RAG-based metadata assistant
+- SQL validation and auto-retry layer
+- Persistent query history using DynamoDB or PostgreSQL
+- Redis caching for faster repeated analytics
+- Pre-aggregated KPI tables
+- Bedrock model support
+- Role-based access control
+- Docker deployment
+- Terraform Infrastructure as Code
+- CI/CD using GitHub Actions
+- Live cloud deployment
 
-### 🔗 GitHub
+---
 
+## 👨‍💻 Author
+
+### Surya Teja Polepalli
+
+GitHub:  
 https://github.com/Suryatejapolepalli
 
-### 🔗 Project Repository
-
+Project Repository:  
 https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot
 
 ---
 
-
-# 🧠 AI Workflow
-
-```text
-Business Question
-        ↓
-OpenAI GPT Model
-        ↓
-Athena SQL Generation
-        ↓
-Amazon Athena Query Execution
-        ↓
-Analytics Results
-        ↓
-Charts + Business Insights
-```
-
----
-
-# ⭐ Project Highlights
+## ⭐ Project Highlights
 
 ✅ End-to-End AWS Data Engineering Project  
-✅ AI-Powered NL2SQL Copilot  
+✅ AI-Powered Natural Language Analytics  
 ✅ Enterprise Retail Warehouse Design  
-✅ Serverless Architecture  
+✅ Serverless AWS Architecture  
 ✅ Production-Style ETL Framework  
-✅ Real-Time Analytics Thinking  
-✅ Interactive Visualizations  
-✅ Resume & Interview Ready Project 🚀
-
----
-
-# 📈 Project Impact
-
-This project demonstrates how enterprise data engineering and generative AI can be combined to build intelligent analytics platforms that reduce dependency on manual SQL querying and accelerate business decision-making.
+✅ OpenAI-Powered NL2SQL  
+✅ Streamlit Interactive Dashboard  
+✅ AI Business Insight Generation  
+✅ Query History and CSV Export  
+✅ Resume and Interview Ready Project

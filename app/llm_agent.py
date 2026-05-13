@@ -4,11 +4,27 @@ from prompts import SYSTEM_PROMPT
 client = OpenAI()
 
 
-def generate_sql(question: str) -> str:
+def generate_sql(question: str, history=None) -> str:
+
+    history_text = ""
+
+    if history:
+        for item in history[-3:]:
+            history_text += f"""
+Previous Question:
+{item['question']}
+
+Previous SQL:
+{item['sql']}
+"""
+
     prompt = f"""
 {SYSTEM_PROMPT}
 
-User question:
+Conversation History:
+{history_text}
+
+Current User Question:
 {question}
 """
 
