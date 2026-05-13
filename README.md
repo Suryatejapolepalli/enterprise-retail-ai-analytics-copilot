@@ -465,6 +465,25 @@ https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot
 
 ---
 
+
+# 🧠 AI Workflow
+
+```text
+Business Question
+        ↓
+OpenAI GPT Model
+        ↓
+Athena SQL Generation
+        ↓
+Amazon Athena Query Execution
+        ↓
+Analytics Results
+        ↓
+Charts + Business Insights
+```
+
+---
+
 # ⭐ Project Highlights
 
 ✅ End-to-End AWS Data Engineering Project  
