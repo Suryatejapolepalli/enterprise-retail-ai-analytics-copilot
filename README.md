@@ -114,6 +114,21 @@ Results + Charts + Insights
 
 ---
 
+# 🏗️ System Components
+
+| Layer | Technology |
+|---|---|
+| Frontend | Streamlit |
+| AI Layer | OpenAI GPT |
+| Query Engine | Amazon Athena |
+| ETL Layer | AWS Glue PySpark |
+| Storage Layer | Amazon S3 |
+| Monitoring | CloudWatch + SNS |
+| Orchestration | AWS Lambda |
+
+---
+
+
 # 🧱 Enterprise Data Warehouse Design
 
 ## ⭐ Fact Tables
