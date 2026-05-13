@@ -5,6 +5,8 @@ from datetime import datetime
 from athena_client import run_athena_query
 from llm_agent import generate_sql
 from insight_generator import generate_business_insight
+from question_classifier import is_metadata_question
+from metadata_assistant import generate_metadata_answer
 
 
 st.set_page_config(
@@ -68,6 +70,7 @@ st.sidebar.write("• Show top 5 states by revenue")
 st.sidebar.write("• Best selling product")
 st.sidebar.write("• Which city has highest revenue")
 st.sidebar.write("• Show payment status distribution")
+st.sidebar.write("• What does reorder_level mean?")
 
 st.sidebar.markdown("---")
 
@@ -124,6 +127,32 @@ question = st.text_input(
 if st.button("🔍 Analyze", use_container_width=True):
 
     if question.strip():
+
+        # =====================================================
+        # METADATA ASSISTANT ROUTING
+        # =====================================================
+
+        if is_metadata_question(question):
+
+            with st.spinner("Generating metadata explanation..."):
+
+                metadata_answer = generate_metadata_answer(question)
+
+            st.session_state.query_history.append(
+                {
+                    "question": question,
+                    "sql": "Metadata assistant response - Athena query not executed",
+                    "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                }
+            )
+
+            st.success("Metadata explanation generated successfully")
+
+            st.subheader("🧠 Metadata Assistant")
+
+            st.info(metadata_answer)
+
+            st.stop()
 
         # =====================================================
         # GENERATE SQL
@@ -230,10 +259,6 @@ if st.button("🔍 Analyze", use_container_width=True):
                 use_container_width=True
             )
 
-            # =====================================================
-            # DOWNLOAD CSV
-            # =====================================================
-
             csv = df.to_csv(index=False).encode("utf-8")
 
             st.download_button(
@@ -244,17 +269,9 @@ if st.button("🔍 Analyze", use_container_width=True):
                 key=f"download_{len(st.session_state.query_history)}"
             )
 
-            # =====================================================
-            # AI INSIGHTS
-            # =====================================================
-
             st.subheader("🧠 AI Business Insight")
 
             st.info(ai_insight)
-
-            # =====================================================
-            # BASIC INSIGHT
-            # =====================================================
 
             st.subheader("Business Insight")
 

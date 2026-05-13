@@ -1,4 +1,5 @@
 from openai import OpenAI
+from metadata_context import BUSINESS_METADATA
 
 client = OpenAI()
 
@@ -8,7 +9,10 @@ def generate_business_insight(question, dataframe):
     sample_data = dataframe.head(10).to_string(index=False)
 
     prompt = f"""
-You are a senior business analyst.
+You are a senior retail business analyst.
+
+Business metadata:
+{BUSINESS_METADATA}
 
 User question:
 {question}
@@ -17,7 +21,7 @@ Query result sample:
 {sample_data}
 
 Generate:
-1. Short executive summary
+1. Executive summary
 2. Key business insight
 3. Important trend or observation
 
