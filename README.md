@@ -275,6 +275,11 @@ Automatically generates:
 ![Dashboard](screenshots/dashboard.png)
 
 ---
+## 🕘 AI Query History
+
+![Query History](screenshots/query_history.png)
+
+---
 
 ## 🧠 Generated Athena SQL
 
@@ -293,6 +298,14 @@ Automatically generates:
 ![Visualization](screenshots/chart.png)
 
 ---
+
+## Demo Questions
+
+- Show top 5 states by revenue
+- Best selling product
+- Which city has highest revenue
+- Show payment status distribution
+- Top 3 products by sales
 
 # 🧪 Sample Athena Queries
 
@@ -352,6 +365,13 @@ enterprise-retail-ai-analytics-copilot/
 ├── requirements.txt
 └── .gitignore
 ```
+
+---
+
+## Security
+
+OpenAI API keys and AWS credentials are not hardcoded in the application.  
+Credentials are managed securely through environment variables and local AWS CLI configuration.
 
 ---
 
