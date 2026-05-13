@@ -91,6 +91,7 @@ Results + Charts + Insights
 
 ---
 
+
 ## 📌 Implementation Proof (What I Built)
 
 ![Implementation Proof](architecture/implementation_proof.png)
@@ -275,6 +276,12 @@ Automatically generates:
 ![Dashboard](screenshots/dashboard.png)
 
 ---
+## 🧠 AI Business Insights
+
+![AI Business Insights](screenshots/ai_business_insights.png)
+
+---
+
 ## 🕘 AI Query History
 
 ![Query History](screenshots/query_history.png)
