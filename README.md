@@ -465,7 +465,7 @@ Examples:
 ## AI Query History
 
 <p align="center">
-  <img src="screenshots/query_history.png" width="1000"/>
+  <img src="screenshots/query_history.png" width="350"/>
 </p>
 
 ---
