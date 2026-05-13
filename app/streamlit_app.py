@@ -4,6 +4,7 @@ from datetime import datetime
 
 from athena_client import run_athena_query
 from llm_agent import generate_sql
+from insight_generator import generate_business_insight
 
 
 st.set_page_config(
@@ -12,24 +13,14 @@ st.set_page_config(
     layout="wide"
 )
 
-# =====================================================
-# SESSION STATE
-# =====================================================
-
 if "query_history" not in st.session_state:
     st.session_state.query_history = []
 
-# =====================================================
-# CACHE
-# =====================================================
 
 @st.cache_data(ttl=300)
 def cached_athena_query(sql_query):
     return run_athena_query(sql_query)
 
-# =====================================================
-# CUSTOM CSS
-# =====================================================
 
 st.markdown(
     """
@@ -39,7 +30,6 @@ st.markdown(
         font-weight: 800;
         color: #1f77b4;
     }
-
     .subtitle {
         font-size: 18px;
         color: #666666;
@@ -49,33 +39,21 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# =====================================================
-# SIDEBAR
-# =====================================================
-
 st.sidebar.title("🚀 Retail AI Copilot")
-
-st.sidebar.write(
-    "AI-powered analytics platform using AWS Athena + OpenAI"
-)
+st.sidebar.write("AI-powered analytics platform using AWS Athena + OpenAI")
 
 st.sidebar.markdown("---")
-
 st.sidebar.subheader("📌 Example Questions")
-
 st.sidebar.write("• Show top 5 states by revenue")
 st.sidebar.write("• Best selling product")
 st.sidebar.write("• Which city has highest revenue")
 st.sidebar.write("• Show payment status distribution")
 
 st.sidebar.markdown("---")
-
 st.sidebar.subheader("🕘 Query History")
 
 if st.session_state.query_history:
-
     for item in reversed(st.session_state.query_history[-5:]):
-
         st.sidebar.markdown(
             f"""
             **Question:**  
@@ -85,15 +63,9 @@ if st.session_state.query_history:
             {item['time']}
             """
         )
-
         st.sidebar.markdown("---")
-
 else:
     st.sidebar.info("No queries executed yet.")
-
-# =====================================================
-# TITLE
-# =====================================================
 
 st.markdown(
     '<div class="main-title">Enterprise Retail AI Analytics Copilot</div>',
@@ -107,33 +79,17 @@ st.markdown(
 
 st.markdown("---")
 
-# =====================================================
-# INPUT
-# =====================================================
-
 question = st.text_input(
     "Ask a business question",
     placeholder="Example: Show top 5 states by revenue"
 )
 
-# =====================================================
-# ANALYZE
-# =====================================================
-
 if st.button("🔍 Analyze", use_container_width=True):
 
     if question.strip():
 
-        # =====================================================
-        # GENERATE SQL
-        # =====================================================
-
         with st.spinner("Generating SQL using OpenAI..."):
             sql_query = generate_sql(question)
-
-        # =====================================================
-        # SAVE QUERY HISTORY IMMEDIATELY
-        # =====================================================
 
         st.session_state.query_history.append(
             {
@@ -143,39 +99,26 @@ if st.button("🔍 Analyze", use_container_width=True):
             }
         )
 
-        # =====================================================
-        # RUN ATHENA QUERY
-        # =====================================================
-
         with st.spinner("Running Athena query..."):
             df = cached_athena_query(sql_query)
 
-        st.success("Analysis completed successfully")
+        with st.spinner("Generating AI business insights..."):
+            ai_insight = generate_business_insight(question, df)
 
-        # =====================================================
-        # FORMAT DATAFRAME
-        # =====================================================
+        st.success("Analysis completed successfully")
 
         formatted_df = df.copy()
 
         for column in formatted_df.columns:
-
             converted = pd.to_numeric(
                 formatted_df[column],
                 errors="coerce"
             )
 
             if converted.notna().sum() > 0:
-
                 formatted_df[column] = converted.apply(
-                    lambda x: f"{x:,.0f}"
-                    if pd.notnull(x)
-                    else x
+                    lambda x: f"{x:,.0f}" if pd.notnull(x) else x
                 )
-
-        # =====================================================
-        # KPI CARDS
-        # =====================================================
 
         kpi1, kpi2, kpi3 = st.columns(3)
 
@@ -188,10 +131,6 @@ if st.button("🔍 Analyze", use_container_width=True):
         with kpi3:
             st.metric("Query Engine", "Athena")
 
-        # =====================================================
-        # TABS
-        # =====================================================
-
         tab1, tab2, tab3 = st.tabs(
             [
                 "📊 Results",
@@ -200,12 +139,7 @@ if st.button("🔍 Analyze", use_container_width=True):
             ]
         )
 
-        # =====================================================
-        # RESULTS TAB
-        # =====================================================
-
         with tab1:
-
             st.subheader("Query Results")
 
             st.dataframe(
@@ -223,8 +157,10 @@ if st.button("🔍 Analyze", use_container_width=True):
                 key=f"download_{len(st.session_state.query_history)}"
             )
 
-            st.subheader("Business Insight")
+            st.subheader("🧠 AI Business Insight")
+            st.info(ai_insight)
 
+            st.subheader("Business Insight")
             st.write(
                 f"""
                 The query returned **{len(df)} records**
@@ -232,29 +168,20 @@ if st.button("🔍 Analyze", use_container_width=True):
                 """
             )
 
-        # =====================================================
-        # VISUALIZATION TAB
-        # =====================================================
-
         with tab2:
-
             st.subheader("Visualization")
 
             chart_df = df.copy()
-
             numeric_cols = []
 
             for column in chart_df.columns:
-
                 converted = pd.to_numeric(
                     chart_df[column],
                     errors="coerce"
                 )
 
                 if converted.notna().sum() > 0:
-
                     chart_df[column] = converted
-
                     numeric_cols.append(column)
 
             dimension_cols = [
@@ -263,17 +190,13 @@ if st.button("🔍 Analyze", use_container_width=True):
             ]
 
             if len(dimension_cols) > 0 and len(numeric_cols) > 0:
-
                 dimension_col = dimension_cols[0]
-
                 metric_col = numeric_cols[0]
 
                 st.bar_chart(
                     chart_df.set_index(dimension_col)[metric_col]
                 )
-
             else:
-
                 st.info(
                     """
                     Visualization available only when
@@ -281,19 +204,9 @@ if st.button("🔍 Analyze", use_container_width=True):
                     """
                 )
 
-        # =====================================================
-        # SQL TAB
-        # =====================================================
-
         with tab3:
-
             st.subheader("Generated Athena SQL")
-
-            st.code(
-                sql_query,
-                language="sql"
-            )
+            st.code(sql_query, language="sql")
 
     else:
-
         st.warning("Please enter a question.")

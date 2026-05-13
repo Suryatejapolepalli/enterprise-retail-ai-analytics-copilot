@@ -322,6 +322,27 @@ Automatically generates:
 
 ---
 
+## 🧠 AI Business Insights
+
+The application automatically generates executive-level business insights using OpenAI after query execution.
+
+Features:
+
+- AI-generated executive summaries
+- Trend identification
+- Business observations
+- Insight generation from Athena query results
+
+Example:
+
+```text
+California generated the highest revenue among all states.
+Electronics products dominate sales performance.
+Revenue concentration indicates strong regional demand.
+```
+---
+
+
 # 🧪 Sample Athena Queries
 
 ## Revenue by State
