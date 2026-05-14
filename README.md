@@ -112,7 +112,7 @@ Implemented:
 # 🏗️ Enterprise Architecture
 
 <p align="center">
-  <img src="images/architecture_diagram.png" width="1000"/>
+  <img src="architecture/architecture_diagram.png" width="1000"/>
 </p>
 
 ---
@@ -120,7 +120,7 @@ Implemented:
 # 🛠️ My Implementation
 
 <p align="center">
-  <img src="images/my_implementation.png" width="1000"/>
+  <img src="architecture/my_implementation.png" width="1000"/>
 </p>
 
 ---
@@ -130,7 +130,7 @@ Implemented:
 ## AI Visualization
 
 <p align="center">
-  <img src="images/ai_visualization.png" width="1000"/>
+  <img src="screenshots/ai_visualization.png" width="1000"/>
 </p>
 
 ---
@@ -138,7 +138,7 @@ Implemented:
 ## SQL Explanation Layer
 
 <p align="center">
-  <img src="images/sql_explanation.png" width="1000"/>
+  <img src="screenshots/sql_explanation.png" width="1000"/>
 </p>
 
 ---
@@ -146,7 +146,7 @@ Implemented:
 ## Metadata Assistant
 
 <p align="center">
-  <img src="images/metadata_assistant.png" width="1000"/>
+  <img src="screenshots/metadata_assistant.png" width="1000"/>
 </p>
 
 ---
@@ -154,7 +154,7 @@ Implemented:
 ## Query History
 
 <p align="center">
-  <img src="images/query_history.png" width="350"/>
+  <img src="screenshots/query_history.png" width="350"/>
 </p>
 
 ---
@@ -195,7 +195,7 @@ enterprise-retail-ai-analytics-copilot/
 │   ├── athena_client.py
 │   └── prompts.py
 │
-├── images/
+├── screenshots/
 │
 ├── glue_jobs/
 │
