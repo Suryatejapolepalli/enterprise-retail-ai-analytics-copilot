@@ -120,7 +120,7 @@ Implemented:
 # 🛠️ My Implementation
 
 <p align="center">
-  <img src="architecture/my_implementation.png" width="1000"/>
+  <img src="architecture/implementation_proof.png" width="1000"/>
 </p>
 
 ---
