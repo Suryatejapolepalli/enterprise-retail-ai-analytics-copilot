@@ -1,24 +1,30 @@
 # 🚀 Enterprise Retail AI Analytics Copilot
 
-AI-powered enterprise analytics platform built using AWS Athena, OpenAI, Streamlit, AWS Glue, and Amazon S3.
+AI-powered enterprise analytics platform built using **AWS Athena, AWS Glue, Amazon S3, OpenAI, Streamlit, Plotly, and RAG-based metadata search**.
 
 This project enables business users to ask natural language questions and receive:
+
 - AI-generated Athena SQL
-- Interactive visualizations
+- Interactive Plotly visualizations
 - AI business insights
 - SQL explanations
-- Metadata-aware responses
+- RAG-based metadata responses
+- Query history
 - Downloadable analytics results
 
 ---
 
-# ✨ Features
+## 🌐 Live Demo
 
-## ✅ Natural Language to SQL (NL2SQL)
+https://enterprise-retail-ai-analytics-copilot-amecggjsprkhai987fhfej.streamlit.app/
 
-Convert business questions into optimized Athena SQL queries using OpenAI.
+---
 
-### Example
+## ✨ Features
+
+### ✅ Natural Language to SQL
+
+Converts business questions into Athena SQL using OpenAI.
 
 ```text
 Show top 5 states by revenue
@@ -26,24 +32,13 @@ Show top 5 states by revenue
 
 ---
 
-## ✅ AI Business Insights
+### ✅ RAG-Based Metadata Assistant
 
-Automatically generates:
-- Executive summaries
-- Key business insights
-- Trend observations
-
-using OpenAI after Athena query execution.
-
----
-
-## ✅ Metadata Assistant
-
-Handles metadata/business glossary questions without querying Athena.
-
-### Examples
+Answers metadata and glossary questions without running Athena.
 
 ```text
+What is dim_customer_scd2?
+
 What does reorder_level mean?
 
 Explain fact_orders table
@@ -51,65 +46,68 @@ Explain fact_orders table
 
 ---
 
-## ✅ Intelligent Query Routing
+### ✅ Intelligent Query Routing
 
-Application automatically classifies:
-- Metadata questions
-- Analytics questions
-
-to optimize query execution and response time.
-
----
-
-## ✅ Interactive AI Visualizations
-
-Dynamic chart generation using Plotly:
-- 📊 Bar Charts
-- 📈 Line Charts
-- 🥧 Pie Charts
-
-### Interactive Features
-- Zoom In / Zoom Out
-- Hover Analytics
-- Fullscreen Mode
-- Export as PNG
-
----
-
-## ✅ SQL Explanation Layer
-
-Explains generated SQL queries in simple business language.
-
-### Example
+Routes questions into:
 
 ```text
-This query calculates total revenue grouped by state.
+Metadata Question → RAG Metadata Assistant
+
+Analytics Question → OpenAI SQL → Athena → Charts + Insights
 ```
 
 ---
 
-## ✅ Query History
+### ✅ AI Business Insights
 
-Stores:
-- Question history
-- SQL history
-- Execution timestamps
-
-inside Streamlit session state.
+Generates executive-style business summaries after Athena query execution.
 
 ---
 
-## ✅ Athena Query Optimization
+### ✅ SQL Explanation Layer
 
-Implemented:
-- SQL validation
-- Athena-compatible syntax checks
-- Query caching
-- Case-insensitive filtering logic
+Explains generated SQL in simple business language.
 
 ---
 
-# 🏗️ Enterprise Architecture
+### ✅ Interactive Plotly Visualizations
+
+Supports:
+
+- Bar charts
+- Line charts
+- Pie charts
+- Zoom in / zoom out
+- Hover analytics
+- Export image
+
+---
+
+### ✅ Query History and CSV Export
+
+Tracks recent questions and allows users to download query results.
+
+---
+
+## 🧠 AI Workflow
+
+```text
+User Question
+      ↓
+Question Classifier
+      ↓
+Metadata Route OR Analytics Route
+      ↓
+RAG Metadata Search OR OpenAI NL2SQL
+      ↓
+Athena Query Execution
+      ↓
+Results + Plotly Charts + AI Insights
+```
+
+---
+
+## 🏗️ Enterprise Architecture
 
 <p align="center">
   <img src="architecture/architecture_diagram.png" width="1000"/>
@@ -117,7 +115,7 @@ Implemented:
 
 ---
 
-# 🛠️ My Implementation
+## 🛠️ My Implementation
 
 <p align="center">
   <img src="architecture/implementation_proof.png" width="1000"/>
@@ -125,17 +123,25 @@ Implemented:
 
 ---
 
-# 📸 Application Screenshots
+## 📸 Application Screenshots
 
-## AI Visualization
+### Dashboard
 
 <p align="center">
-  <img src="screenshots/ai_visualization.png" width="1000"/>
+  <img src="screenshots/dashboard.png" width="1000"/>
 </p>
 
 ---
 
-## SQL Explanation Layer
+### AI Visualization
+
+<p align="center">
+  <img src="screenshots/chart.png" width="1000"/>
+</p>
+
+---
+
+### SQL Explanation
 
 <p align="center">
   <img src="screenshots/sql_explanation.png" width="1000"/>
@@ -143,7 +149,15 @@ Implemented:
 
 ---
 
-## Metadata Assistant
+### AI Business Insights
+
+<p align="center">
+  <img src="screenshots/ai_business_insights.png" width="1000"/>
+</p>
+
+---
+
+### RAG Metadata Assistant
 
 <p align="center">
   <img src="screenshots/metadata_assistant.png" width="1000"/>
@@ -151,7 +165,7 @@ Implemented:
 
 ---
 
-## Query History
+### Query History
 
 <p align="center">
   <img src="screenshots/query_history.png" width="350"/>
@@ -159,128 +173,316 @@ Implemented:
 
 ---
 
-# ⚙️ AWS Services Used
+## ☁️ AWS Services Used
 
-- Amazon S3
-- AWS Glue
-- AWS Lambda
-- Amazon Athena
-- AWS CloudWatch
-- AWS SNS
-
----
-
-# 🤖 AI & Analytics Stack
-
-- OpenAI GPT-4.1-mini
-- Streamlit
-- Plotly
-- Pandas
-- PyAthena
+| Service | Purpose |
+|---|---|
+| Amazon S3 | Raw and curated data lake storage |
+| AWS Glue | PySpark ETL processing |
+| AWS Lambda | Event-driven orchestration |
+| Amazon Athena | Serverless SQL analytics |
+| AWS Glue Data Catalog | Metadata catalog |
+| CloudWatch | Monitoring and logging |
+| SNS | Alerts and notifications |
+| IAM | Access management |
 
 ---
 
-# 📂 Project Structure
+## 🤖 AI and Analytics Stack
+
+| Component | Tool |
+|---|---|
+| NL2SQL | OpenAI |
+| Metadata RAG | OpenAI Embeddings + FAISS |
+| Dashboard | Streamlit |
+| Charts | Plotly |
+| Query Engine | Amazon Athena |
+| Data Processing | AWS Glue PySpark |
+| Storage | Amazon S3 |
+
+---
+
+## 🔄 Data Engineering Pipeline
+
+```text
+Retail CSV Files
+      ↓
+Amazon S3 Raw Layer
+      ↓
+AWS Lambda Trigger
+      ↓
+AWS Glue PySpark ETL
+      ↓
+Validation + Reject Handling
+      ↓
+SCD Type 1 and Type 2 Processing
+      ↓
+Fact and Dimension Loading
+      ↓
+Audit and Reconciliation
+      ↓
+Curated S3 Parquet Warehouse
+      ↓
+Amazon Athena
+      ↓
+AI Analytics Copilot
+```
+
+---
+
+## 🧱 Data Warehouse Design
+
+### Fact Tables
+
+#### fact_orders
+
+```text
+Grain = 1 row per order
+```
+
+Used for:
+
+- Revenue analytics
+- Product sales analysis
+- Customer analytics
+- Regional reporting
+- Payment analytics
+
+#### fact_inventory
+
+```text
+Grain = 1 row per product per warehouse
+```
+
+Used for:
+
+- Inventory monitoring
+- Low stock detection
+- Reorder-level analysis
+
+---
+
+### Dimension Tables
+
+#### dim_customer_scd2
+
+Tracks historical customer changes using SCD Type 2 logic.
+
+#### dim_product_scd1
+
+Stores latest product attributes using SCD Type 1 overwrite logic.
+
+---
+
+## 🏢 Enterprise ETL Features
+
+- Data validation framework
+- Reject handling framework
+- Audit logging
+- Reconciliation checks
+- SCD Type 1 processing
+- SCD Type 2 processing
+- Curated Parquet output
+- Crawler-based Glue Catalog integration
+
+---
+
+## 🧪 Example Questions
+
+### Analytics Questions
+
+```text
+Show top 5 states by revenue
+
+Show monthly revenue trend
+
+Show payment status distribution
+
+Top 3 products by sales
+
+Which city has highest revenue?
+```
+
+### Metadata Questions
+
+```text
+What is dim_customer_scd2?
+
+What does reorder_level mean?
+
+Explain fact_orders table
+
+How is revenue calculated?
+```
+
+---
+
+## ▶️ Run Locally
+
+```bash
+git clone https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot.git
+
+cd enterprise-retail-ai-analytics-copilot
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+streamlit run app/streamlit_app.py
+```
+
+---
+
+## 🔐 Security
+
+- OpenAI API keys are stored as environment variables
+- AWS credentials are managed using AWS CLI or Streamlit secrets
+- No secrets are hardcoded in source code
+- `.gitignore` prevents local environment files from being pushed
+
+Example:
+
+```bash
+setx OPENAI_API_KEY "your_api_key_here"
+```
+
+---
+
+## 📂 Project Structure
 
 ```text
 enterprise-retail-ai-analytics-copilot/
 │
 ├── app/
 │   ├── streamlit_app.py
-│   ├── llm_agent.py
-│   ├── insight_generator.py
-│   ├── metadata_assistant.py
-│   ├── metadata_context.py
-│   ├── sql_explainer.py
-│   ├── question_classifier.py
 │   ├── athena_client.py
-│   └── prompts.py
+│   ├── llm_agent.py
+│   ├── prompts.py
+│   ├── insight_generator.py
+│   ├── sql_explainer.py
+│   ├── metadata_assistant.py
+│   ├── metadata_documents.py
+│   ├── rag_metadata.py
+│   └── question_classifier.py
+│
+├── architecture/
+│   ├── architecture_diagram.png
+│   └── implementation_proof.png
 │
 ├── screenshots/
-│
-├── glue_jobs/
+│   ├── dashboard.png
+│   ├── chart.png
+│   ├── sql_explanation.png
+│   ├── ai_business_insights.png
+│   ├── metadata_assistant.png
+│   └── query_history.png
 │
 ├── requirements.txt
-│
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-# 🚀 How to Run
+## 🛠️ Technical Skills Demonstrated
 
-## 1️⃣ Clone Repository
+### AWS and Data Engineering
 
-```bash
-git clone https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot.git
-```
+- Amazon S3
+- AWS Glue PySpark
+- AWS Lambda
+- Amazon Athena
+- AWS Glue Data Catalog
+- CloudWatch and SNS
+- Data warehousing
+- SCD Type 1 and Type 2
+- Audit and reconciliation frameworks
 
----
+### AI and Analytics
 
-## 2️⃣ Install Dependencies
+- OpenAI API
+- NL2SQL
+- Prompt engineering
+- RAG metadata search
+- FAISS vector search
+- AI business insights
+- SQL explanation
+- Conversational analytics
+- Intelligent routing
 
-```bash
-pip install -r requirements.txt
-```
+### Dashboarding
 
----
-
-## 3️⃣ Configure Environment Variables
-
-Set:
-
-```text
-OPENAI_API_KEY
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-AWS_REGION
-```
-
----
-
-## 4️⃣ Start Streamlit Application
-
-```bash
-streamlit run app/streamlit_app.py
-```
+- Streamlit
+- Plotly
+- KPI cards
+- Query history
+- CSV export
+- Interactive charts
 
 ---
 
-# 🧠 Example Business Questions
+## 📈 Project Impact
 
-```text
-Show top 5 states by revenue
+This project demonstrates how **enterprise data engineering and generative AI** can be combined to build an intelligent analytics copilot.
 
-Show payment status distribution
-
-Show monthly revenue trend
-
-Show top products by sales
-
-What does reorder_level mean?
-
-Explain fact_orders table
-```
+It reduces dependency on manual SQL writing and allows business users to explore data through natural language, while still maintaining enterprise data warehouse practices such as validation, audit logging, reconciliation, and dimensional modeling.
 
 ---
 
-# 🔥 Enterprise-Level Capabilities
+## 💼 Resume Highlights
 
-✅ AI-Powered NL2SQL  
-✅ Interactive Analytics  
-✅ Metadata Intelligence  
-✅ Conversational Analytics  
-✅ Query Optimization  
-✅ SQL Explainability  
-✅ Athena Serverless Analytics  
-✅ Enterprise Data Warehouse Architecture  
-✅ Plotly Interactive Visualization  
-✅ AWS Cloud-Native Data Engineering  
+- Built and deployed an AI-powered enterprise analytics copilot using AWS Athena, OpenAI, Streamlit, Plotly, and AWS serverless services.
+- Implemented NL2SQL, RAG-based metadata search, AI business insights, SQL explanations, query history, and interactive visualizations.
+- Designed an AWS data warehouse pipeline using S3, Glue PySpark, Lambda, Athena, CloudWatch, and SNS.
+- Implemented SCD Type 1 and SCD Type 2 dimensional modeling with audit, reconciliation, and reject handling frameworks.
 
 ---
 
-# 👨‍💻 Built By
+## ⚠️ Limitations
 
-## Surya Teja Polepalli
+- Query history is currently session-based
+- Metadata RAG is lightweight and file-based
+- Complex SQL edge cases may require stronger validation
+- Authentication and role-based access control are not yet implemented
 
-Enterprise Data Engineering | AI Analytics | AWS | GenAI Applications
+---
+
+## 🚀 Future Enhancements
+
+- LangGraph agent workflow
+- Persistent query history using DynamoDB or PostgreSQL
+- Role-based access control
+- Advanced semantic layer
+- SQL auto-correction and retry
+- AWS Bedrock integration
+- Docker deployment
+- Terraform infrastructure
+- CI/CD with GitHub Actions
+
+---
+
+## 👨‍💻 Author
+
+### Surya Teja Polepalli
+
+GitHub:  
+https://github.com/Suryatejapolepalli
+
+Project Repository:  
+https://github.com/Suryatejapolepalli/enterprise-retail-ai-analytics-copilot
+
+---
+
+## ⭐ Project Highlights
+
+✅ Deployed GenAI analytics application  
+✅ AWS serverless data engineering  
+✅ OpenAI-powered NL2SQL  
+✅ RAG-based metadata assistant  
+✅ Athena query execution  
+✅ Plotly interactive dashboards  
+✅ AI-generated business insights  
+✅ Enterprise data warehouse design  
+✅ Resume and interview-ready project
