@@ -2,6 +2,7 @@ METADATA_KEYWORDS = [
     "meaning",
     "mean",
     "define",
+    "what is",
     "definition",
     "describe",
     "metadata",

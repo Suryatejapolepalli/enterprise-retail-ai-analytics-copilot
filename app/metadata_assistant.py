@@ -1,25 +1,27 @@
 from openai import OpenAI
-from metadata_context import BUSINESS_METADATA
+from rag_metadata import search_metadata
 
 client = OpenAI()
 
 
 def generate_metadata_answer(question):
 
+    metadata_context = search_metadata(question)
+
     prompt = f"""
-You are an enterprise retail data warehouse assistant.
+You are an enterprise metadata assistant.
 
-Business metadata:
-{BUSINESS_METADATA}
+Metadata Context:
+{metadata_context}
 
-Answer the user's metadata question professionally.
-
-Question:
+User Question:
 {question}
+
+Provide a professional business explanation.
 """
 
     response = client.responses.create(
-        model="gpt-4.1-nano",
+        model="gpt-4.1-mini",
         input=prompt
     )
 
