@@ -152,7 +152,7 @@ Results + Plotly Charts + AI Insights
 ### AI Business Insights
 
 <p align="center">
-  <img src="screenshots/ai_business_insights.png" width="1000"/>
+  <img src="screenshots/ai_visualization.png" width="1000"/>
 </p>
 
 ---
