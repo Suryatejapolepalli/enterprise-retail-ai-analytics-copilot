@@ -190,6 +190,7 @@ enterprise-retail-ai-analytics-copilot/
 │   ├── llm_agent.py
 │   ├── insight_generator.py
 │   ├── metadata_assistant.py
+│   ├── metadata_context.py
 │   ├── sql_explainer.py
 │   ├── question_classifier.py
 │   ├── athena_client.py
