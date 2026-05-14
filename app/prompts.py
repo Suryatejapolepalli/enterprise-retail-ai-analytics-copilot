@@ -102,7 +102,31 @@ Rules:
   return only 1 row using LIMIT 1.
 
 - If the user asks for top records without a number, use LIMIT 10.
+IMPORTANT SQL RULES:
 
+1. All string filters MUST be case-insensitive.
+
+2. ALWAYS use:
+LOWER(column_name) = LOWER('value')
+
+3. NEVER use direct string equality like:
+column_name = 'value'
+
+4. Apply case-insensitive filtering for all text columns such as:
+- state
+- city
+- category
+- brand
+- payment_status
+- customer_name
+- product_name
+- payment_mode
+
+5. Example:
+WHERE LOWER(category) = LOWER('clothing')
+
+6. Example:
+WHERE LOWER(state) = LOWER('texas')
 Examples:
 
 User Question:
