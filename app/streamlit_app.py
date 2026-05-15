@@ -19,15 +19,29 @@ st.set_page_config(
     layout="wide"
 )
 
+# =====================================================
+# SESSION STATE
+# =====================================================
 
 if "query_history" not in st.session_state:
     st.session_state.query_history = []
 
+if "admin_authenticated" not in st.session_state:
+    st.session_state.admin_authenticated = False
+
+
+# =====================================================
+# CACHE
+# =====================================================
 
 @st.cache_data(ttl=300)
 def cached_athena_query(sql_query):
     return run_athena_query(sql_query)
 
+
+# =====================================================
+# CUSTOM CSS
+# =====================================================
 
 st.markdown(
     """
@@ -47,6 +61,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
+# =====================================================
+# SIDEBAR
+# =====================================================
 
 st.sidebar.title("🚀 Retail AI Copilot")
 st.sidebar.write("AI-powered analytics platform using AWS Athena + OpenAI")
@@ -79,6 +97,41 @@ else:
     st.sidebar.info("No queries executed yet.")
 
 
+# =====================================================
+# SIDEBAR ADMIN LOGIN
+# =====================================================
+
+st.sidebar.markdown("---")
+st.sidebar.subheader("🔐 Admin Login")
+
+if not st.session_state.admin_authenticated:
+
+    admin_password = st.sidebar.text_input(
+        "Admin Password",
+        type="password",
+        key="sidebar_admin_password"
+    )
+
+    if st.sidebar.button("Login"):
+        if admin_password == st.secrets["ADMIN_PASSWORD"]:
+            st.session_state.admin_authenticated = True
+            st.sidebar.success("Admin logged in")
+            st.rerun()
+        else:
+            st.sidebar.error("Invalid password")
+
+else:
+    st.sidebar.success("Admin access enabled")
+
+    if st.sidebar.button("Logout"):
+        st.session_state.admin_authenticated = False
+        st.rerun()
+
+
+# =====================================================
+# TITLE
+# =====================================================
+
 st.markdown(
     '<div class="main-title">Enterprise Retail AI Analytics Copilot</div>',
     unsafe_allow_html=True
@@ -92,11 +145,19 @@ st.markdown(
 st.markdown("---")
 
 
+# =====================================================
+# INPUT
+# =====================================================
+
 question = st.text_input(
     "Ask a business question",
     placeholder="Example: Show top 5 states by revenue"
 )
 
+
+# =====================================================
+# ANALYZE BUTTON
+# =====================================================
 
 if st.button("🔍 Analyze", use_container_width=True):
 
@@ -130,11 +191,11 @@ if st.button("🔍 Analyze", use_container_width=True):
             st.subheader("🧠 Metadata Assistant")
             st.info(metadata_answer)
 
-        else:
+        # =====================================================
+        # ANALYTICS QUESTIONS
+        # =====================================================
 
-            # =====================================================
-            # GENERATE SQL
-            # =====================================================
+        else:
 
             with st.spinner("Generating SQL using OpenAI..."):
                 sql_query = generate_sql(
@@ -150,23 +211,11 @@ if st.button("🔍 Analyze", use_container_width=True):
                 }
             )
 
-            # =====================================================
-            # RUN ATHENA QUERY
-            # =====================================================
-
             with st.spinner("Running Athena query..."):
                 df = cached_athena_query(sql_query)
 
-            # =====================================================
-            # SQL EXPLANATION
-            # =====================================================
-
             with st.spinner("Generating SQL explanation..."):
                 sql_explanation = explain_sql(sql_query)
-
-            # =====================================================
-            # AI BUSINESS INSIGHT
-            # =====================================================
 
             with st.spinner("Generating AI business insights..."):
                 ai_insight = generate_business_insight(
@@ -183,10 +232,6 @@ if st.button("🔍 Analyze", use_container_width=True):
 
             st.success("Analysis completed successfully")
 
-            # =====================================================
-            # FORMAT DATAFRAME
-            # =====================================================
-
             formatted_df = df.copy()
 
             for column in formatted_df.columns:
@@ -199,10 +244,6 @@ if st.button("🔍 Analyze", use_container_width=True):
                     formatted_df[column] = converted.apply(
                         lambda x: f"{x:,.0f}" if pd.notnull(x) else x
                     )
-
-            # =====================================================
-            # KPI CARDS
-            # =====================================================
 
             kpi1, kpi2, kpi3 = st.columns(3)
 
@@ -229,6 +270,7 @@ if st.button("🔍 Analyze", use_container_width=True):
             # =====================================================
 
             with tab1:
+
                 st.subheader("Query Results")
 
                 st.dataframe(
@@ -262,6 +304,7 @@ if st.button("🔍 Analyze", use_container_width=True):
             # =====================================================
 
             with tab2:
+
                 st.subheader("📈 AI Visualization")
 
                 chart_df = df.copy()
@@ -323,6 +366,7 @@ if st.button("🔍 Analyze", use_container_width=True):
                         or "percentage" in lower_question
                         or "share" in lower_question
                     ):
+
                         st.subheader("🥧 Distribution Chart")
 
                         pie_df = (
@@ -348,6 +392,7 @@ if st.button("🔍 Analyze", use_container_width=True):
                         or "monthly" in lower_question
                         or "daily" in lower_question
                     ):
+
                         st.subheader("📈 Trend Chart")
 
                         fig = px.line(
@@ -363,6 +408,7 @@ if st.button("🔍 Analyze", use_container_width=True):
                         )
 
                     else:
+
                         st.subheader("📊 Ranking Chart")
 
                         fig = px.bar(
@@ -390,6 +436,7 @@ if st.button("🔍 Analyze", use_container_width=True):
             # =====================================================
 
             with tab3:
+
                 st.subheader("🧠 SQL Explanation")
                 st.info(sql_explanation)
 
@@ -401,41 +448,98 @@ if st.button("🔍 Analyze", use_container_width=True):
             # =====================================================
 
             with tab4:
+
                 st.subheader("📊 Copilot Usage Analytics")
+
+                if not st.session_state.admin_authenticated:
+                    st.warning("Admin access required to view usage analytics.")
+                    st.stop()
 
                 history_df = get_query_history()
 
                 if history_df.empty:
+
                     st.info("No usage history available yet.")
+
                 else:
-                    total_queries = len(history_df)
+
+                    st.subheader("🔎 Usage Filters")
+
+                    filter_col1, filter_col2, filter_col3 = st.columns(3)
+
+                    with filter_col1:
+                        query_type_filter = st.selectbox(
+                            "Query Type",
+                            [
+                                "All",
+                                "analytics",
+                                "metadata"
+                            ]
+                        )
+
+                    with filter_col2:
+                        search_text = st.text_input(
+                            "Search Question",
+                            placeholder="Search questions..."
+                        )
+
+                    with filter_col3:
+                        max_rows = st.slider(
+                            "Recent Activity Rows",
+                            min_value=5,
+                            max_value=50,
+                            value=10
+                        )
+
+                    filtered_df = history_df.copy()
+
+                    if (
+                        query_type_filter != "All"
+                        and "query_type" in filtered_df.columns
+                    ):
+                        filtered_df = filtered_df[
+                            filtered_df["query_type"] == query_type_filter
+                        ]
+
+                    if search_text.strip() and "question" in filtered_df.columns:
+                        filtered_df = filtered_df[
+                            filtered_df["question"].str.contains(
+                                search_text,
+                                case=False,
+                                na=False
+                            )
+                        ]
+
+                    total_queries = len(filtered_df)
 
                     metadata_count = (
-                        len(history_df[history_df["query_type"] == "metadata"])
-                        if "query_type" in history_df.columns
+                        len(filtered_df[filtered_df["query_type"] == "metadata"])
+                        if "query_type" in filtered_df.columns
                         else 0
                     )
 
                     analytics_count = (
-                        len(history_df[history_df["query_type"] == "analytics"])
-                        if "query_type" in history_df.columns
+                        len(filtered_df[filtered_df["query_type"] == "analytics"])
+                        if "query_type" in filtered_df.columns
                         else 0
                     )
 
-                    c1, c2, c3 = st.columns(3)
+                    metric_col1, metric_col2, metric_col3 = st.columns(3)
 
-                    with c1:
+                    with metric_col1:
                         st.metric("Total Queries", total_queries)
 
-                    with c2:
+                    with metric_col2:
                         st.metric("Analytics Queries", analytics_count)
 
-                    with c3:
+                    with metric_col3:
                         st.metric("Metadata Queries", metadata_count)
 
-                    if "date" in history_df.columns:
+                    if "date" in filtered_df.columns and not filtered_df.empty:
+
                         trend_df = (
-                            history_df.groupby("date")
+                            filtered_df
+                            .groupby("date")
                             .size()
                             .reset_index(name="query_count")
                         )
@@ -454,29 +558,34 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                     st.subheader("Top Questions")
 
-                    top_questions = (
-                        history_df["question"]
-                        .value_counts()
-                        .head(5)
-                        .reset_index()
-                    )
+                    if not filtered_df.empty and "question" in filtered_df.columns:
 
-                    top_questions.columns = [
-                        "question",
-                        "count"
-                    ]
+                        top_questions = (
+                            filtered_df["question"]
+                            .value_counts()
+                            .head(5)
+                            .reset_index()
+                        )
 
-                    fig = px.bar(
-                        top_questions,
-                        x="question",
-                        y="count",
-                        title="Top 5 Asked Questions"
-                    )
+                        top_questions.columns = [
+                            "question",
+                            "count"
+                        ]
 
-                    st.plotly_chart(
-                        fig,
-                        use_container_width=True
-                    )
+                        fig = px.bar(
+                            top_questions,
+                            x="question",
+                            y="count",
+                            title="Top 5 Asked Questions"
+                        )
+
+                        st.plotly_chart(
+                            fig,
+                            use_container_width=True
+                        )
+
+                    else:
+                        st.info("No questions available for selected filters.")
 
                     st.subheader("Recent Activity")
 
@@ -486,18 +595,24 @@ if st.button("🔍 Analyze", use_container_width=True):
                             "query_type",
                             "timestamp"
                         ]
-                        if col in history_df.columns
+                        if col in filtered_df.columns
                     ]
 
-                    display_df = history_df[display_cols]
+                    if display_cols and not filtered_df.empty:
 
-                    st.dataframe(
-                        display_df.sort_values(
-                            "timestamp",
-                            ascending=False
-                        ).head(10),
-                        use_container_width=True
-                    )
+                        display_df = filtered_df[display_cols]
+
+                        st.dataframe(
+                            display_df.sort_values(
+                                "timestamp",
+                                ascending=False
+                            ).head(max_rows),
+                            use_container_width=True
+                        )
+
+                    else:
+                        st.info("No recent activity available for selected filters.")
 
     else:
+
         st.warning("Please enter a question.")
