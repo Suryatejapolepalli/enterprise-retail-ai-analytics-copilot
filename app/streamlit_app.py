@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 from sql_repair_agent import repair_sql
 from datetime import datetime
-
+from query_logger import save_query
 from sql_explainer import explain_sql
 from athena_client import run_athena_query
 from llm_agent import generate_sql
@@ -218,6 +218,11 @@ if st.button("🔍 Analyze", use_container_width=True):
                 question,
                 df
             )
+            save_query(
+                question,
+                sql_query,
+                ai_insight
+                )
 
         st.success("Analysis completed successfully")
 
