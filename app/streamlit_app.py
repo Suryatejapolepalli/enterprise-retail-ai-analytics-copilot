@@ -19,6 +19,7 @@ st.set_page_config(
     layout="wide"
 )
 
+
 # =====================================================
 # SESSION STATE
 # =====================================================
@@ -159,7 +160,7 @@ question = st.text_input(
 # ANALYZE BUTTON
 # =====================================================
 
-if st.button("🔍 Analyze", use_container_width=True):
+if st.button("🔍 Analyze", width="stretch"):
 
     if question.strip():
 
@@ -275,7 +276,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                 st.dataframe(
                     formatted_df,
-                    use_container_width=True
+                    width="stretch"
                 )
 
                 csv = df.to_csv(index=False).encode("utf-8")
@@ -383,7 +384,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                         st.plotly_chart(
                             fig,
-                            use_container_width=True
+                            width="stretch"
                         )
 
                     elif (
@@ -404,7 +405,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                         st.plotly_chart(
                             fig,
-                            use_container_width=True
+                            width="stretch"
                         )
 
                     else:
@@ -420,7 +421,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                         st.plotly_chart(
                             fig,
-                            use_container_width=True
+                            width="stretch"
                         )
 
                 else:
@@ -553,7 +554,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                         st.plotly_chart(
                             fig,
-                            use_container_width=True
+                            width="stretch"
                         )
 
                     st.subheader("Top Questions")
@@ -581,7 +582,7 @@ if st.button("🔍 Analyze", use_container_width=True):
 
                         st.plotly_chart(
                             fig,
-                            use_container_width=True
+                            width="stretch"
                         )
 
                     else:
@@ -607,7 +608,7 @@ if st.button("🔍 Analyze", use_container_width=True):
                                 "timestamp",
                                 ascending=False
                             ).head(max_rows),
-                            use_container_width=True
+                            width="stretch"
                         )
 
                     else:
