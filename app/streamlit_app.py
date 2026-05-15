@@ -27,8 +27,14 @@ st.set_page_config(
 if "query_history" not in st.session_state:
     st.session_state.query_history = []
 
-if "admin_authenticated" not in st.session_state:
-    st.session_state.admin_authenticated = False
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "username" not in st.session_state:
+    st.session_state.username = None
+
+if "user_role" not in st.session_state:
+    st.session_state.user_role = None
 
 
 # =====================================================
@@ -99,33 +105,66 @@ else:
 
 
 # =====================================================
-# SIDEBAR ADMIN LOGIN
+# USER LOGIN + RBAC
 # =====================================================
 
 st.sidebar.markdown("---")
-st.sidebar.subheader("🔐 Admin Login")
+st.sidebar.subheader("🔐 User Login")
 
-if not st.session_state.admin_authenticated:
+if not st.session_state.logged_in:
 
-    admin_password = st.sidebar.text_input(
-        "Admin Password",
+    username = st.sidebar.text_input(
+        "Username",
+        key="username_input"
+    )
+
+    password = st.sidebar.text_input(
+        "Password",
         type="password",
-        key="sidebar_admin_password"
+        key="password_input"
     )
 
     if st.sidebar.button("Login"):
-        if admin_password == st.secrets["ADMIN_PASSWORD"]:
-            st.session_state.admin_authenticated = True
-            st.sidebar.success("Admin logged in")
+
+        users = st.secrets["users"]
+
+        if (
+            username in users
+            and password == users[username]["password"]
+        ):
+
+            st.session_state.logged_in = True
+            st.session_state.username = username
+            st.session_state.user_role = users[username]["role"]
+
+            st.sidebar.success(
+                f"Logged in as {username}"
+            )
+
             st.rerun()
+
         else:
-            st.sidebar.error("Invalid password")
+
+            st.sidebar.error(
+                "Invalid username or password"
+            )
 
 else:
-    st.sidebar.success("Admin access enabled")
+
+    st.sidebar.success(
+        f"""
+User: {st.session_state.username}
+
+Role: {st.session_state.user_role}
+"""
+    )
 
     if st.sidebar.button("Logout"):
-        st.session_state.admin_authenticated = False
+
+        st.session_state.logged_in = False
+        st.session_state.username = None
+        st.session_state.user_role = None
+
         st.rerun()
 
 
@@ -163,6 +202,14 @@ question = st.text_input(
 if st.button("🔍 Analyze", width="stretch"):
 
     if question.strip():
+
+        if not st.session_state.logged_in:
+
+            st.warning(
+                "Please login before running analytics."
+            )
+
+            st.stop()
 
         # =====================================================
         # METADATA QUESTIONS
@@ -452,8 +499,10 @@ if st.button("🔍 Analyze", width="stretch"):
 
                 st.subheader("📊 Copilot Usage Analytics")
 
-                if not st.session_state.admin_authenticated:
-                    st.warning("Admin access required to view usage analytics.")
+                if st.session_state.user_role != "admin":
+                    st.warning(
+                        "Admin role required to access usage analytics."
+                    )
                     st.stop()
 
                 history_df = get_query_history()
